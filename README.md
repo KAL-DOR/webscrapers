@@ -1,30 +1,118 @@
-# Computrabajo-scrapper
+# 🇲🇽 Mexico HR Job Scraper
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue) ![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-4-green) ![SQLAlchemy Version](https://img.shields.io/pypi/v/sqlalchemy?label=SQLAlchemy&color=orange)
+A comprehensive web scraper for HR job listings from Mexican job sites.
 
+## 📁 Project Structure
 
-**Computrabajo-scrapper** es una herramienta de scraping en Python que permite extraer información de vacantes publicadas en la plataforma de **Computrabajo** en función de un rol específico. La información obtenida se almacena en una base de datos para su posterior análisis.
+```
+Computrabajo-scrapper/
+├── 📁 OCCMexicoScraper/          # OCC Mexico scraper module
+├── 📁 exports/                   # CSV exports and data files
+├── 📁 scripts/                   # Utility and export scripts
+├── 📁 temp/                      # Temporary files and tests
+├── 📄 main.py                    # Computrabajo scraper main script
+├── 📄 scraper.py                 # Computrabajo scraper logic
+├── 📄 models.py                  # Database models
+├── 📄 jobs.db                    # SQLite database
+├── 📄 get_3000_occ_jobs.py      # Get 3000+ OCC jobs script
+└── 📄 requirements.txt           # Python dependencies
+```
 
-## 🚀 Tecnologías utilizadas
+## 🚀 Quick Start
 
-- **Python** 🐍
-- **BeautifulSoup4** – Para extraer información del HTML.
-- **httpx** – Para realizar las solicitudes HTTP.
-- **SQLAlchemy** – Para gestionar la base de datos.
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+playwright install
+```
 
-## 📌 Características
+### 2. Run Scrapers
 
-- Extrae información de ofertas de trabajo según un rol específico.
-- Guarda los datos estructurados en una base de datos.
-- Permite futuras consultas y análisis de la información recolectada.
+**Get 3000+ OCC Jobs:**
+```bash
+python get_3000_occ_jobs.py
+```
 
-## 🔧 Instalación
+**Run Computrabajo Scraper:**
+```bash
+python main.py
+```
 
-1. Clona este repositorio:
+**Run OCC Scraper (Full):**
+```bash
+python -m OCCMexicoScraper
+```
 
-   ```sh
-   git clone https://github.com/GsxDavid/Computrabajo-scrapper.
-   
-   cd Computrabajo-scrapper
+### 3. Export Data
 
-2. Ejecuta el archivo **main.py**  e ingresa el cargo o categoría a consultar
+**Export Database to CSV:**
+```bash
+python scripts/export_db_to_csv.py
+```
+
+**Export OCC Jobs (No Duplicates):**
+```bash
+python scripts/export_occ_no_duplicates.py
+```
+
+## 📊 Data Sources
+
+- **OCC Mexico**: HR job listings from occ.com.mx
+- **Computrabajo**: HR job listings from mx.computrabajo.com
+
+## 🎯 Features
+
+- ✅ **3000+ OCC Jobs**: Automatic scraping until target reached
+- ✅ **Duplicate Removal**: Smart deduplication by job links
+- ✅ **Progress Saving**: Checkpoint saves every 500 jobs
+- ✅ **Database Integration**: SQLite storage with source tracking
+- ✅ **CSV Export**: Direct export to CSV files
+- ✅ **ETA Display**: Real-time progress with time estimates
+- ✅ **Location Filtering**: Mexico-specific location detection
+
+## 📈 Current Status
+
+- **OCC Jobs**: Target 3000+ jobs
+- **Computrabajo Jobs**: 2500+ jobs
+- **Total Database**: 2700+ jobs
+
+## 🔧 Configuration
+
+### OCC Scraper Settings
+- **Keywords**: recursos-humanos, rrhh, rh, reclutamiento, seleccion, personal
+- **Pages per keyword**: Auto-adjusting (starts at 50)
+- **Wait time**: 5-8 seconds between requests
+- **Location filter**: Mexico cities and states
+
+### Computrabajo Scraper Settings
+- **Keywords**: recursos humanos, rrhh, rh, reclutamiento, seleccion
+- **Pages per keyword**: Configurable
+- **Wait time**: 2-5 seconds between requests
+
+## 📁 File Organization
+
+### `/exports/`
+- CSV files with scraped data
+- Progress checkpoints
+- Final results
+
+### `/scripts/`
+- Export utilities
+- Database checkers
+- Analysis tools
+
+### `/temp/`
+- Test files
+- Debug HTML files
+- Temporary data
+
+## 🎯 Next Steps
+
+1. **Run 3000 OCC Jobs**: `python get_3000_occ_jobs.py`
+2. **Check Progress**: Monitor exports folder
+3. **Analyze Data**: Use scripts in `/scripts/` folder
+4. **Export Results**: CSV files in `/exports/` folder
+
+## 📞 Support
+
+For issues or questions, check the `/temp/` folder for debug files and test results.
