@@ -57,6 +57,30 @@ class OCCScraper:
             logger.error(f"Error searching jobs on page {page}: {e}")
             return []
     
+    async def search_jobs_single_page(self, keyword: str, page: int = 1) -> List[Dict]:
+        """Search for jobs on a single page (optimized for checkpoint system)"""
+        try:
+            # Construct search URL with correct pagination structure
+            search_url = f"{self.base_url}/empleos/de-{keyword}/"
+            if page > 1:
+                search_url += f"?page={page}"
+            
+            # Navigate to the page
+            await self.page.goto(search_url, timeout=60000)
+            await self.page.wait_for_timeout(2000)  # Reduced wait time
+            
+            # Scroll to load all content
+            await self.page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            await self.page.wait_for_timeout(1000)  # Reduced wait time
+            
+            # Get the HTML content
+            html = await self.page.content()
+            return await self.parse_jobs_page(html)
+                
+        except Exception as e:
+            logger.error(f"Error searching jobs on page {page}: {e}")
+            return []
+    
     async def get_job_description(self, job_url: str) -> str:
         """Get job description by visiting the job page"""
         try:
